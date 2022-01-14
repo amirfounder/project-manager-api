@@ -1,7 +1,9 @@
 from flask import Flask, request
+from src.data.core import setup_schema
 
 from src.utils.constants import FLASK_PROJECTS_ID_ENDPOINT, FLASK_PROJECTS_ENDPOINT
 from src.services import *
+from src.utils.utils import serialize
 
 app = Flask(__name__)
 
@@ -26,8 +28,13 @@ def projects_controller_2():
         return get_projects_service()
 
     if request.method == 'POST':
-        return create_project_service()
+        project = create_project_service()
+        # response_body = serialize(project)
+        response_status = 200
+
+        return project, response_status
 
 
 if __name__ == '__main__':
+    setup_schema()
     app.run(debug=True)
