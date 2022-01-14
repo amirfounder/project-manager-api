@@ -34,8 +34,6 @@ class EntityBase(object):
         return result
 
 
-
-
 class Project(EntityBase, Base):
     __tablename__ = 'projects'
 
