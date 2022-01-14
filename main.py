@@ -1,9 +1,11 @@
 from flask import Flask, request
+from flask_cors import CORS
 from src.controllers import *
 from src.data import setup_schema
 from src.utils import *
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route(FLASK_PROJECTS_ID_ENDPOINT, methods=['GET', 'PUT', 'DELETE'])
