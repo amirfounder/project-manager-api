@@ -1,22 +1,33 @@
 from datetime import date, datetime
+from flask import jsonify, Response
 
 
 def responsify(res: dict | list):
+    responsified = dict | list[dict]
 
     if isinstance(res, dict):
-        return responsify_dict(res)
+        responsified = responsify_dict(res)
     
-    if isinstance(res, list):
-        return responsify_list(res)
+    elif isinstance(res, list):
+        responsified = responsify_list(res)
     
-    message: str
-    message = 'You should not be sending anything but a dict or list back from a REST API'
+    else:
+        message: str
+        message = 'You should not be sending anything but a dict or list back from a REST API'
 
-    raise TypeError(message)
+        raise TypeError(message)
+    
+    response: Response
+    response = jsonify(responsified)
+    
+    return response
 
 
 def responsify_list(iter: list) -> list:
-    return [responsify_dict(x) for x in iter]
+    responsified = [responsify_dict(x) for x in iter]
+    responsified = tuple(responsified)
+
+    return responsified
 
 
 def responsify_dict(obj: dict) -> dict:

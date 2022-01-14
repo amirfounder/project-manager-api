@@ -1,5 +1,4 @@
 from flask import Request
-from http.client import OK
 from src.controllers.utils import responsify
 from src.services import *
 
@@ -9,6 +8,7 @@ def get_projects_controller(request: Request):
     projects = get_projects_service()
 
     response_body = responsify(projects)
+    
     response_status = 200
 
     return response_body, response_status

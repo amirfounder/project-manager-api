@@ -1,9 +1,7 @@
 from flask import Flask, request
-from src.controllers.project_controller import delete_project_controller, get_project_by_id_controller, get_projects_controller, post_project_controller, put_project_controller
-from src.data.core import setup_schema
-
-from src.utils.constants import FLASK_PROJECTS_ID_ENDPOINT, FLASK_PROJECTS_ENDPOINT
-from src.controllers.utils import *
+from src.controllers import *
+from src.data import setup_schema
+from src.utils import *
 
 app = Flask(__name__)
 
