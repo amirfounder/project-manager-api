@@ -1,0 +1,2 @@
+FLASK_PROJECTS_ENDPOINT = '/projects'
+FLASK_PROJECTS_ID_ENDPOINT = '/projects/<id>'
