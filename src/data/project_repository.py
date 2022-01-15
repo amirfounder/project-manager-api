@@ -4,7 +4,7 @@ from src.data.core import build_session
 
 def create_project(project_to_create: dict):
     project = Project()
-    project.name = project_to_create.get('name')
+    project.from_dict(project_to_create)
 
     session = build_session()
     session.add(project)

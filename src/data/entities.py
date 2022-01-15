@@ -32,12 +32,22 @@ class EntityBase(object):
             result[name] = value
         
         return result
+    
+    def from_dict(self, obj: dict):
+        
+        for key, value in obj.items():
+            if hasattr(self, key):
+                setattr(self, key, value)
+        
+        return self
+        
 
 
 class Project(EntityBase, Base):
     __tablename__ = 'projects'
 
     id = Column(BigInteger, primary_key=True)
+    tag = Column(String)
     name = Column(String)
 
 
