@@ -1,7 +1,9 @@
 from flask import Flask, request
 from flask_cors import CORS
 from src.controllers import *
+from src.controllers.base_controller import *
 from src.data import setup_schema
+from src.data.entities import *
 from src.utils import *
 
 app = Flask(__name__)
@@ -12,23 +14,28 @@ CORS(app)
 def projects_controller_1(id):
 
     if request.method == 'GET':
-        return get_project_by_id_controller(request, id)
+        return get_by_id_controller(Project, request, id)
 
     if request.method == 'PUT':
-        return put_project_controller(request, id)
+        return put_controller(Project, request, id)
 
     if request.method == 'DELETE':
-        return delete_project_controller(id)
+        return delete_controller(Project, id)
 
 
 @app.route(FLASK_PROJECTS_ENDPOINT, methods=['GET', 'POST'])
 def projects_controller_2():
 
     if request.method == 'GET':
-        return get_projects_controller(request)
 
+        if request.query_string == '':
+            return get_controller(Project)
+
+        else:
+            return None
+            
     if request.method == 'POST':
-        return post_project_controller(request)
+        return post_controller(Project, request)
 
 
 if __name__ == '__main__':
