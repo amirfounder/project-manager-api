@@ -90,8 +90,13 @@ def filter_query_object(entity_type: type[EntityBase], query_object: dict):
     query_object_items = list(query_object_items)
 
     for key, value in query_object_items:
-        
+
         key = key.lower()
+        
+        try:
+            value = int(value)
+        except ValueError:
+            pass
         
         if key in column_names:
             filtered_obj[key] = value
