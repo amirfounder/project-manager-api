@@ -35,7 +35,7 @@ def handle_request(entity_type: type[EntityBase], request: Request):
             return get_controller(entity_type)
         
         else:
-            return None
+            return get_controller_with_filter(entity_type, query_object)
 
     if request.method == 'POST':
         return post_controller(entity_type, request)

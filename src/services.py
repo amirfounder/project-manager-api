@@ -1,7 +1,8 @@
+from html import entities
 from flask import abort
 from src.utils.exceptions import throw_not_found
 from src.utils.utils import responsify
-from src.repository import get_by_id_from_db, get_from_db, post_to_db
+from src.repository import get_by_id_from_db, get_from_db, get_with_filter_from_db, post_to_db
 from src.database.database_entities import EntityBase
 
 def get_service(entity_type: type[EntityBase]):
@@ -12,11 +13,20 @@ def get_service(entity_type: type[EntityBase]):
     return entities
 
 
+def get_with_filter_service(entity_type: type[EntityBase], query_object: dict):
+    entities: list[entity_type]
+    entities = get_with_filter_from_db(entity_type, query_object)
+    entities = [x.to_dict() for x in entities]
+    
+    return entities
+
+
 def get_by_id_service(entity_type: type[EntityBase], id: int):
     entity: entity_type
     entity = get_by_id_from_db(entity_type, id)
     
     if entity is None:
+        message: str
         message = 'Could not find entity with id: %i' %id
         throw_not_found(message)
     

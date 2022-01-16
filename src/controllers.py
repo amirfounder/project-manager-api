@@ -14,8 +14,14 @@ def get_controller(entity_type: type[EntityBase]):
     return response
 
 
-def get_controller_with_filter(query_object: dict):
-    pass
+def get_controller_with_filter(entity_type: type[EntityBase], query_object: dict):
+    entities: list[entity_type]
+    entities = get_with_filter_service(entity_type, query_object)
+
+    response = responsify(entities)
+    response.status = 200
+
+    return response
 
 
 def get_by_id_controller(entity_type: type[EntityBase], id: int):

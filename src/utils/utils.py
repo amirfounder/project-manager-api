@@ -63,10 +63,12 @@ def build_query_object(query_string: str):
     obj: dict
     obj = {}
 
-    if not query_string.startswith('?'):
+    query_string_params: str
+    query_string_params = query_string[1:]
+
+    if query_string_params == '':
         return obj
     
-    query_string_params = query_string[1:]
     query_string_params = query_string_params.split('&')
     query_string_param_items = [tuple(x.split('=')) for x in query_string_params]
 
