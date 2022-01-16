@@ -1,5 +1,5 @@
-from src.data.core import build_session
-from src.data.entities import EntityBase
+from src.database.database_setup import build_session
+from src.database.database_entities import EntityBase
 
 
 def get_from_db(entity_type: type[EntityBase]):

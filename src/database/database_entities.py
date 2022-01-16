@@ -1,6 +1,6 @@
 from datetime import datetime
 from sqlalchemy import Column as TableColumn, Integer, String, BigInteger, DateTime, Table, ForeignKey
-from src.data.core import Base
+from src.database.database_setup import Base
 
 
 class EntityBase(object):
@@ -12,20 +12,29 @@ class EntityBase(object):
         super().__init__()
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
-    
 
-    def get_columns(self):
+    @classmethod
+    def get_column_names(cls):
+        columns: list[TableColumn]
+        columns = cls.get_columns()
+
+        column_names: list[str]
+        column_names = [x.name for x in columns]
+
+        return column_names
+
+    @classmethod
+    def get_columns(cls: type[Base]):
         table: Table
-        table = self.__getattribute__('__table__')
+        table = cls.__getattribute__(cls, '__table__')
 
         if table is None:
             return []
-        
+
         columns: list[TableColumn]
         columns = table.columns
 
         return columns
-    
 
     def to_dict(self):
         result: dict
@@ -38,17 +47,15 @@ class EntityBase(object):
             name = column.name
             value = self.__getattribute__(name)
             result[name] = value
-        
+
         return result
-    
 
     def from_dict(self, obj: dict):
         for key, value in obj.items():
             if hasattr(self, key):
                 setattr(self, key, value)
-        
+
         return self
-        
 
 
 class Project(EntityBase, Base):

@@ -1,8 +1,7 @@
-from src.controllers.utils import responsify
-from src.data.entities import EntityBase
 from flask import Request
-
-from src.services.base_services import *
+from src.utils.utils import responsify
+from src.database.database_entities import EntityBase
+from src.services import *
 
 
 def get_controller(entity_type: type[EntityBase]):
@@ -13,6 +12,10 @@ def get_controller(entity_type: type[EntityBase]):
     response.status = 200
 
     return response
+
+
+def get_controller_with_filter(query_object: dict):
+    pass
 
 
 def get_by_id_controller(entity_type: type[EntityBase], id: int):
