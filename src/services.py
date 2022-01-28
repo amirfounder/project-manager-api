@@ -1,8 +1,5 @@
-from html import entities
-from flask import abort
 from src.utils.exceptions import throw_not_found
-from src.utils.utils import responsify
-from src.repository import get_by_id_from_db, get_from_db, get_with_filter_from_db, post_to_db
+from src.repository import *
 from src.database.database_entities import EntityBase
 
 def get_service(entity_type: type[EntityBase]):

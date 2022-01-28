@@ -78,5 +78,7 @@ class Card(EntityBase, Base):
     __tablename__ = 'cards'
 
     project_id = TableColumn(BigInteger, ForeignKey(Project.id))
+    column_id = TableColumn(BigInteger, ForeignKey(Column.id))
+    order = TableColumn(Integer)
     name = TableColumn(String)
     description = TableColumn(String)

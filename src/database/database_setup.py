@@ -83,7 +83,7 @@ def sync_table(table):
                 datatype_name = 'TIMESTAMP {} time zone'.format(keyword)
 
             column_statements.append(
-                'ADD COLUMN {} {}'.format(name, datatype_name))
+                'ADD COLUMN "{}" {}'.format(name, datatype_name))
 
     if db_columns_length > model_columns_length:
 
