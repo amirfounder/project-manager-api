@@ -1,6 +1,25 @@
 from datetime import date, datetime
 from flask import jsonify, Response, Request
 from src.database.database_entities import EntityBase
+from inflector import Inflector
+
+
+def convert_to_snake_case(data: str):
+    inflector = Inflector()
+    data = inflector.underscore(data)
+    
+    return data
+
+
+def convert_request_body_to_snakecase(data: dict):
+    data_items = data.items()
+    data = {}
+
+    for key, value in data_items:
+        key_underscore = convert_to_snake_case(key)
+        data[key_underscore] = value
+    
+    return data
 
 
 def responsify(res: dict | list):

@@ -1,5 +1,5 @@
 from flask import Request
-from src.utils.utils import responsify
+from src.utils.utils import convert_request_body_to_snakecase, convert_to_snake_case, responsify
 from src.database.database_entities import EntityBase
 from src.services import *
 
@@ -37,6 +37,7 @@ def get_by_id_controller(entity_type: type[EntityBase], id: int):
 def post_controller(entity_type: type[EntityBase], request: Request):
     request_body: dict
     request_body = request.json
+    request_body = convert_request_body_to_snakecase(request_body)
 
     entity: dict
     entity = post_service(entity_type, request_body)
@@ -56,9 +57,9 @@ def put_controller(request: Request, id: int):
 
     response_body = responsify(project)
     response_status = 200
-    
+
     return response_body, response_status
-    
+
 
 def delete_controller(id: int):
 
